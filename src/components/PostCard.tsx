@@ -243,7 +243,7 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDele
         {showActions && (
           <div className="mt-2 pt-2 border-t">
             <div className="flex items-center gap-2">
-              <Button asChild variant="ghost" size="xs" className="border-0" style={{ borderWidth: "0px !important" }}>
+              <Button asChild variant="ghost" size="xs" className="border-0 focus:outline-none focus-visible:ring-0 ring-offset-0 shadow-none" style={{ borderWidth: "0px !important" }}>
                 <Link to={`/edit-post/${post.id}`}>
                   <Edit className="h-3 w-3 mr-1" />
                   Edit
@@ -252,7 +252,7 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDele
               <Button
                 variant="ghost" size="xs"
                 onClick={() => handleDeletePost?.(post.id)}
-                className="text-destructive hover:text-destructive border-0" style={{ borderWidth: "0px !important" }}
+                className="text-destructive hover:text-destructive border-0 focus:outline-none focus-visible:ring-0 ring-offset-0 shadow-none" style={{ borderWidth: "0px !important" }}
               >
                 <Trash2 className="h-3 w-3 mr-1" />
                 Delete

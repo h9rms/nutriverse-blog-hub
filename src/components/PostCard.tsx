@@ -243,15 +243,16 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDele
         {showActions && (
           <div className="mt-2 pt-2 border-t">
             <div className="flex items-center gap-2">
-              <Button asChild variant="outline" size="xs">
+              <Button asChild variant="ghost" size="xs">
                 <Link to={`/edit-post/${post.id}`}>
                   <Edit className="h-3 w-3 mr-1" />
                   Edit
                 </Link>
               </Button>
               <Button
-                variant="destructive" size="xs"
+                variant="ghost" size="xs"
                 onClick={() => handleDeletePost?.(post.id)}
+                className="text-destructive hover:text-destructive"
               >
                 <Trash2 className="h-3 w-3 mr-1" />
                 Delete

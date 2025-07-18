@@ -1,16 +1,10 @@
-import React from 'react';
-
-interface LayoutProps {
-  children: React.ReactNode;
-}
-
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="min-h-screen bg-white">
-      <header className="bg-gray-100 p-4">
-        <h1 className="text-xl font-bold">FitLife</h1>
+    <div>
+      <header>
+        <h1>FitLife</h1>
       </header>
-      <main className="p-4">
+      <main>
         {children}
       </main>
     </div>

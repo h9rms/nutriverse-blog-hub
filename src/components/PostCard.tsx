@@ -100,7 +100,26 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDele
   };
 
   return (
-    <Card className="glass-effect hover-lift transition-all duration-500 border-0 backdrop-blur-sm h-[600px] flex flex-col overflow-hidden">
+    <Card className="glass-effect hover-lift transition-all duration-500 border-0 backdrop-blur-sm h-[600px] flex flex-col overflow-hidden relative">
+      {/* Action Buttons always visible in the lower right */}
+      {showActions && (
+        <div className="absolute bottom-4 right-4 z-20 flex gap-2">
+          <Button asChild variant="ghost" size="xs" className="border-0 focus:outline-none focus-visible:ring-0 ring-offset-0 shadow-none bg-white/80 hover:bg-white/90 backdrop-blur-sm transition-colors">
+            <Link to={`/edit-post/${post.id}`}>
+              <Edit className="h-3 w-3 mr-1" />
+              Edit
+            </Link>
+          </Button>
+          <Button
+            variant="ghost" size="xs"
+            onClick={() => handleDeletePost?.(post.id)}
+            className="text-destructive hover:text-destructive border-0 focus:outline-none focus-visible:ring-0 ring-offset-0 shadow-none bg-white/80 hover:bg-white/90 backdrop-blur-sm transition-colors"
+          >
+            <Trash2 className="h-3 w-3 mr-1" />
+            Delete
+          </Button>
+        </div>
+      )}
       <CardHeader className="flex-shrink-0 flex-grow-0">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
@@ -241,25 +260,23 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDele
         )}
 
         {showActions && (
-          <div className="mt-[-1rem] pt-2 border-t">
-            <div className="flex items-center gap-2">
-              <Button asChild variant="ghost" size="xs" className="border-0 focus:outline-none focus-visible:ring-0 ring-offset-0 shadow-none" style={{ borderWidth: "0px !important" }}>
-                <Link to={`/edit-post/${post.id}`}>
-                  <Edit className="h-3 w-3 mr-1" />
-                  Edit
-                </Link>
-              </Button>
-              <Button
-                variant="ghost" size="xs"
-                onClick={() => handleDeletePost?.(post.id)}
-                className="text-destructive hover:text-destructive border-0 focus:outline-none focus-visible:ring-0 ring-offset-0 shadow-none" style={{ borderWidth: "0px !important" }}
-              >
-                <Trash2 className="h-3 w-3 mr-1" />
-                Delete
-              </Button>
-            </div>
-          </div>
-        )}
+  <div className="absolute bottom-4 right-4 z-20 flex gap-2">
+    <Button asChild variant="ghost" size="xs" className="border-0 focus:outline-none focus-visible:ring-0 ring-offset-0 shadow-none bg-white/80 hover:bg-white/90 backdrop-blur-sm transition-colors">
+      <Link to={`/edit-post/${post.id}`}>
+        <Edit className="h-3 w-3 mr-1" />
+        Edit
+      </Link>
+    </Button>
+    <Button
+      variant="ghost" size="xs"
+      onClick={() => handleDeletePost?.(post.id)}
+      className="text-destructive hover:text-destructive border-0 focus:outline-none focus-visible:ring-0 ring-offset-0 shadow-none bg-white/80 hover:bg-white/90 backdrop-blur-sm transition-colors"
+    >
+      <Trash2 className="h-3 w-3 mr-1" />
+      Delete
+    </Button>
+  </div>
+)}
       </CardContent>
     </Card>
   );

@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Heart, MessageCircle, Share2, Send, Edit, Trash2, Copy, Check } from "lucide-react";
+import { Heart, MessageCircle, Share2, Send, Edit, Trash2, Check } from "lucide-react";
 import { useLikes } from "@/hooks/useLikes";
 import { useComments } from "@/hooks/useComments";
 import { useToast } from "@/hooks/use-toast";
@@ -72,7 +72,6 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDele
     };
 
     try {
-      // Check if Web Share API is available and supported
       if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
         await navigator.share(shareData);
         return;
@@ -81,7 +80,6 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDele
       console.log('Web Share API failed, falling back to clipboard:', error);
     }
 
-    // Fallback to clipboard
     try {
       await navigator.clipboard.writeText(shareUrl);
       setShareClicked(true);
@@ -90,18 +88,15 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDele
         description: "The post link has been copied to clipboard.",
       });
       
-      // Reset icon after 2 seconds
       setTimeout(() => setShareClicked(false), 2000);
     } catch (clipboardError) {
       console.error('Clipboard API failed:', clipboardError);
-      // Last resort: show the URL in a prompt
       window.prompt('Copy link:', shareUrl);
     }
   };
 
   return (
     <Card className="glass-effect hover-lift transition-all duration-500 border-0 backdrop-blur-sm h-[600px] flex flex-col overflow-hidden relative">
-      {/* Action Buttons positioned on the card level */}
       {showActions && (
         <div className="absolute bottom-4 right-4 z-20 flex gap-2">
           <Button asChild variant="ghost" size="xs" className="border-0 focus:outline-none focus-visible:ring-0 ring-offset-0 shadow-none bg-white/80 hover:bg-white/90 backdrop-blur-sm transition-colors">
@@ -111,7 +106,8 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDele
             </Link>
           </Button>
           <Button
-            variant="ghost" size="xs"
+            variant="ghost" 
+            size="xs"
             onClick={() => handleDeletePost?.(post.id)}
             className="text-destructive hover:text-destructive border-0 focus:outline-none focus-visible:ring-0 ring-offset-0 shadow-none bg-white/80 hover:bg-white/90 backdrop-blur-sm transition-colors"
           >
@@ -146,7 +142,9 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDele
         </div>
         
         <Link to={`/post/${post.id}`} className="block hover:opacity-80 transition-opacity flex-grow">
-          <h3 className="text-xl font-semibold mb-2 h-16 flex items-start overflow-hidden">{post.title}</h3>
+          <h3 className="text-xl font-semibold mb-2 h-16 flex items-start overflow-hidden">
+            {post.title}
+          </h3>
           <p className="text-muted-foreground mb-4 h-20 flex items-start overflow-hidden">
             {post.content.length > 120 
               ? post.content.slice(0, 120) + "..." 
@@ -214,7 +212,6 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDele
 
         {showComments && (
           <div className="mt-4 space-y-4">
-            {/* Add Comment */}
             <div className="flex space-x-2">
               <Textarea
                 placeholder="Write a comment..."
@@ -231,7 +228,6 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDele
               </Button>
             </div>
 
-            {/* Comments List */}
             <div className="space-y-3">
               {comments.map((comment) => (
                 <div key={comment.id} className="flex space-x-3 p-3 bg-muted rounded-lg">

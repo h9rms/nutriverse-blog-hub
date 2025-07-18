@@ -128,15 +128,15 @@ const Dashboard = () => {
       console.error('Error fetching dashboard data:', error);
       toast({
         variant: "destructive",
-        title: "Fehler beim Laden",
-        description: "Dashboard-Daten konnten nicht geladen werden."
+        title: "Error loading",
+        description: "Could not load dashboard data."
       });
     } finally {
       setLoading(false);
     }
   };
   const handleDeletePost = async (postId: string) => {
-    if (!confirm('Möchtest du diesen Post wirklich löschen?')) return;
+    if (!confirm('Are you sure you want to delete this post?')) return;
     try {
       const {
         error
@@ -144,13 +144,13 @@ const Dashboard = () => {
       if (error) throw error;
       setMyPosts(prev => prev.filter(post => post.id !== postId));
       toast({
-        title: "Post gelöscht",
-        description: "Der Post wurde erfolgreich gelöscht."
+        title: "Post deleted",
+        description: "The post was successfully deleted."
       });
     } catch (error: any) {
       toast({
         variant: "destructive",
-        title: "Fehler beim Löschen",
+        title: "Error deleting",
         description: error.message
       });
     }
@@ -176,15 +176,15 @@ const Dashboard = () => {
         <div className="max-w-6xl mx-auto mb-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold mb-2">Dein Dashboard</h1>
+              <h1 className="text-3xl md:text-4xl font-bold mb-2">Your Dashboard</h1>
               <p className="text-xl text-muted-foreground">
-                Verwalte deine Posts und sieh deine Aktivitäten
+                Manage your posts and view your activities
               </p>
             </div>
             <Button asChild className="bg-gradient-to-r from-primary to-primary-glow hover:opacity-90">
               <Link to="/create-post">
                 <PlusCircle className="mr-2 h-4 w-4" />
-                Neuer Post
+                New Post
               </Link>
             </Button>
           </div>
@@ -196,12 +196,12 @@ const Dashboard = () => {
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="my-posts" className="flex items-center gap-2">
                 <FileText className="h-4 w-4" />
-                Meine Posts
+                My Posts
               </TabsTrigger>
               
               <TabsTrigger value="liked" className="flex items-center gap-2">
                 <Heart className="h-4 w-4" />
-                Geliked
+                Liked
               </TabsTrigger>
             </TabsList>
 
@@ -209,7 +209,7 @@ const Dashboard = () => {
             <TabsContent value="my-posts" className="mt-6">
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-2xl font-semibold">Meine Posts ({myPosts.length})</h2>
+                  <h2 className="text-2xl font-semibold">My Posts ({myPosts.length})</h2>
                 </div>
 
                 {loading ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -225,14 +225,14 @@ const Dashboard = () => {
                        <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
                          <FileText className="h-8 w-8 text-muted-foreground" />
                        </div>
-                       <h3 className="text-lg font-semibold mb-2">Noch keine Posts</h3>
+                       <h3 className="text-lg font-semibold mb-2">No posts yet</h3>
                        <p className="text-muted-foreground mb-6">
-                         Erstelle deinen ersten Post und teile dein Wissen mit der Community
+                         Create your first post and share your knowledge with the community
                        </p>
                        <Button asChild className="bg-gradient-to-r from-primary to-primary-glow hover:opacity-90">
                          <Link to="/create-post">
                            <PlusCircle className="mr-2 h-4 w-4" />
-                           Ersten Post erstellen
+                           Create first post
                          </Link>
                        </Button>
                      </div>
@@ -245,7 +245,7 @@ const Dashboard = () => {
             {/* Saved Posts */}
             <TabsContent value="saved" className="mt-6">
               <div className="space-y-6">
-                <h2 className="text-2xl font-semibold">Gespeicherte Posts ({savedPosts.length})</h2>
+                <h2 className="text-2xl font-semibold">Saved Posts ({savedPosts.length})</h2>
 
                 {loading ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {[...Array(3)].map((_, i) => <Card key={i} className="animate-pulse">
@@ -255,29 +255,32 @@ const Dashboard = () => {
                           <div className="h-3 bg-muted rounded w-1/2"></div>
                         </CardHeader>
                       </Card>)}
-                  </div> : savedPosts.length === 0 ? <div className="text-center py-12">
-                    <div className="max-w-md mx-auto">
-                      <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
-                        <Bookmark className="h-8 w-8 text-muted-foreground" />
-                      </div>
-                      <h3 className="text-lg font-semibold mb-2">Noch keine gespeicherten Posts</h3>
-                      <p className="text-muted-foreground mb-6">
-                        Speichere Posts, um sie später zu lesen
-                      </p>
-                      <Button asChild variant="outline">
-                        <Link to="/posts">Posts entdecken</Link>
-                      </Button>
-                    </div>
-                  </div> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {savedPosts.map(post => <PostCard key={post.id} post={post} profile={null} />)}
-                  </div>}
-              </div>
-            </TabsContent>
+                   </div> : savedPosts.length === 0 ? <div className="text-center py-12">
+                     <div className="max-w-md mx-auto">
+                       <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
+                         <Bookmark className="h-8 w-8 text-muted-foreground" />
+                       </div>
+                       <h3 className="text-lg font-semibold mb-2">No saved posts yet</h3>
+                       <p className="text-muted-foreground mb-6">
+                         Save posts you want to read later
+                       </p>
+                       <Button asChild>
+                         <Link to="/posts">
+                           <FileText className="mr-2 h-4 w-4" />
+                           Find posts
+                         </Link>
+                       </Button>
+                     </div>
+                   </div> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                     {savedPosts.map(post => <PostCard key={post.id} post={post} profile={post.profiles} showActions={false} />)}
+                   </div>}
+               </div>
+             </TabsContent>
 
             {/* Liked Posts */}
             <TabsContent value="liked" className="mt-6">
               <div className="space-y-6">
-                <h2 className="text-2xl font-semibold">Gelikte Posts ({likedPosts.length})</h2>
+                <h2 className="text-2xl font-semibold">Liked Posts ({likedPosts.length})</h2>
 
                 {loading ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {[...Array(3)].map((_, i) => <Card key={i} className="animate-pulse">
@@ -287,24 +290,27 @@ const Dashboard = () => {
                           <div className="h-3 bg-muted rounded w-1/2"></div>
                         </CardHeader>
                       </Card>)}
-                  </div> : likedPosts.length === 0 ? <div className="text-center py-12">
-                    <div className="max-w-md mx-auto">
-                      <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
-                        <Heart className="h-8 w-8 text-muted-foreground" />
-                      </div>
-                      <h3 className="text-lg font-semibold mb-2">Noch keine gelikten Posts</h3>
-                      <p className="text-muted-foreground mb-6">
-                        Like Posts, die dir gefallen
-                      </p>
-                      <Button asChild variant="outline">
-                        <Link to="/posts">Posts entdecken</Link>
-                      </Button>
-                    </div>
-                  </div> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                     {likedPosts.map(post => <PostCard key={post.id} post={post} profile={post.profiles} onLikeChange={fetchDashboardData} />)}
+                   </div> : likedPosts.length === 0 ? <div className="text-center py-12">
+                     <div className="max-w-md mx-auto">
+                       <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
+                         <Heart className="h-8 w-8 text-muted-foreground" />
+                       </div>
+                       <h3 className="text-lg font-semibold mb-2">No posts liked yet</h3>
+                       <p className="text-muted-foreground mb-6">
+                         Like posts you enjoy and they will appear here
+                       </p>
+                       <Button asChild>
+                         <Link to="/posts">
+                           <FileText className="mr-2 h-4 w-4" />
+                           Find interesting posts
+                         </Link>
+                       </Button>
+                     </div>
+                   </div> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                     {likedPosts.map(post => <PostCard key={post.id} post={post} profile={post.profiles} showActions={false} />)}
                    </div>}
-              </div>
-            </TabsContent>
+               </div>
+             </TabsContent>
           </Tabs>
         </div>
       </div>

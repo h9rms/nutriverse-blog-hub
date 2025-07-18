@@ -11,7 +11,6 @@ import Layout from '@/components/Layout';
 import { Search, Filter, Dumbbell, Apple, Zap, BookOpen } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { enUS } from 'date-fns/locale';
-import SimplePostCard from '@/components/SimplePostCard';
 
 import { useStaggerAnimation } from '@/hooks/useScrollAnimation';
 
@@ -257,10 +256,11 @@ const Posts = () => {
                   key={post.id} 
                   className={`fade-in-up stagger-${Math.min(index + 1, 12)} transition-all duration-300 hover:scale-105`}
                 >
-                  <SimplePostCard 
-                    post={post} 
-                    profile={post.profiles}
-                  />
+                  <div className="border rounded p-4 bg-white">
+                    <h3 className="font-bold text-lg">{post.title}</h3>
+                    <p className="text-gray-600 mt-2">{post.content}</p>
+                    <span className="text-xs bg-blue-100 px-2 py-1 rounded mt-2 inline-block">{post.category}</span>
+                  </div>
                 </div>
               ))}
             </div>

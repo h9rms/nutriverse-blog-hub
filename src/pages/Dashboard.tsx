@@ -12,7 +12,6 @@ import { PlusCircle, FileText, Bookmark, Heart, Edit, Trash2 } from 'lucide-reac
 import { formatDistanceToNow } from 'date-fns';
 import { de } from 'date-fns/locale';
 import { useToast } from '@/hooks/use-toast';
-import SimplePostCard from '@/components/SimplePostCard';
 
 
 // Added a comment to trigger re-deploy
@@ -241,11 +240,11 @@ const Dashboard = () => {
                      </div>
                     </div> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                        {myPosts.map(post => (
-                         <SimplePostCard 
-                           key={post.id} 
-                           post={post} 
-                           profile={post.profiles} 
-                         />
+                         <div key={post.id} className="border rounded p-4 bg-white">
+                           <h3 className="font-bold text-lg">{post.title}</h3>
+                           <p className="text-gray-600 mt-2">{post.content}</p>
+                           <span className="text-xs bg-blue-100 px-2 py-1 rounded mt-2 inline-block">{post.category}</span>
+                         </div>
                        ))}
                     </div>}
                </div>

@@ -6,7 +6,6 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import Layout from '@/components/Layout';
 import { TrendingUp, Users, BookOpen, Dumbbell, Apple, Zap } from 'lucide-react';
-import SimplePostCard from '@/components/SimplePostCard';
 
 import { useScrollAnimation, useCountUp, useStaggerAnimation, usePageLoadAnimation } from '@/hooks/useScrollAnimation';
 
@@ -325,10 +324,11 @@ const Index = () => {
                   {posts.map((post, index) => (
                     <div key={post.id} className="hover-lift magnetic">
                       <div className="gradient-border">
-                        <SimplePostCard 
-                          post={post} 
-                          profile={post.profiles}
-                        />
+                        <div className="border rounded p-4 bg-white">
+                          <h3 className="font-bold text-lg">{post.title}</h3>
+                          <p className="text-gray-600 mt-2">{post.content}</p>
+                          <span className="text-xs bg-blue-100 px-2 py-1 rounded mt-2 inline-block">{post.category}</span>
+                        </div>
                       </div>
                     </div>
                   ))}

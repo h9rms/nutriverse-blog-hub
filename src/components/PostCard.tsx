@@ -4,11 +4,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Heart, MessageCircle, Share2, Send, Edit, Trash2, Check } from "lucide-react";
-import { useLikes } from "@/hooks/useLikes";
-import { useComments } from "@/hooks/useComments";
-import { useToast } from "@/hooks/use-toast";
+import { Edit, Trash2 } from "lucide-react";
 
 interface Post {
   id: string;
@@ -35,15 +31,7 @@ interface PostCardProps {
   handleDeletePost?: (postId: string) => void;
 }
 
-const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDeletePost }: PostCardProps) => {
-  const [showComments, setShowComments] = useState(false);
-  const [newComment, setNewComment] = useState("");
-  const [shareClicked, setShareClicked] = useState(false);
-  
-  const { isLiked, likesCount, loading: likesLoading, toggleLike } = useLikes(post.id, onLikeChange);
-  const { comments, commentsCount, submitting, addComment } = useComments(post.id);
-  const { toast } = useToast();
-
+const PostCard = ({ post, profile, showActions = false, handleDeletePost }: PostCardProps) => {
   const getCategoryColor = (category: string) => {
     const colors: { [key: string]: string } = {
       technology: "bg-blue-100 text-blue-800",
@@ -56,68 +44,28 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDele
     return colors[category] || "bg-gray-100 text-gray-800";
   };
 
-  const handleCommentSubmit = async () => {
-    const success = await addComment(newComment);
-    if (success) {
-      setNewComment("");
-    }
-  };
-
-  const handleShare = async () => {
-    const shareUrl = window.location.origin + `/post/${post.id}`;
-    const shareData = {
-      title: post.title,
-      text: post.content.slice(0, 100) + "...",
-      url: shareUrl,
-    };
-
-    try {
-      if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
-        await navigator.share(shareData);
-        return;
-      }
-    } catch (error) {
-      console.log('Web Share API failed, falling back to clipboard:', error);
-    }
-
-    try {
-      await navigator.clipboard.writeText(shareUrl);
-      setShareClicked(true);
-      toast({
-        title: "Link copied!",
-        description: "The post link has been copied to clipboard.",
-      });
-      
-      setTimeout(() => setShareClicked(false), 2000);
-    } catch (clipboardError) {
-      console.error('Clipboard API failed:', clipboardError);
-      window.prompt('Copy link:', shareUrl);
-    }
-  };
-
   return (
-    <Card className="glass-effect hover-lift transition-all duration-500 border-0 backdrop-blur-sm h-[600px] flex flex-col overflow-hidden relative">
+    <Card className="h-[600px] flex flex-col overflow-hidden relative">
       {showActions && (
         <div className="absolute bottom-4 right-4 z-20 flex gap-2">
-          <Button asChild variant="ghost" size="xs" className="border-0 focus:outline-none focus-visible:ring-0 ring-offset-0 shadow-none bg-white/80 hover:bg-white/90 backdrop-blur-sm transition-colors">
+          <Button asChild variant="ghost" size="sm">
             <Link to={`/edit-post/${post.id}`}>
-              <Edit className="h-3 w-3 mr-1" />
+              <Edit className="h-4 w-4 mr-2" />
               Edit
             </Link>
           </Button>
           <Button
             variant="ghost" 
-            size="xs"
+            size="sm"
             onClick={() => handleDeletePost?.(post.id)}
-            className="text-destructive hover:text-destructive border-0 focus:outline-none focus-visible:ring-0 ring-offset-0 shadow-none bg-white/80 hover:bg-white/90 backdrop-blur-sm transition-colors"
           >
-            <Trash2 className="h-3 w-3 mr-1" />
+            <Trash2 className="h-4 w-4 mr-2" />
             Delete
           </Button>
         </div>
       )}
 
-      <CardHeader className="flex-shrink-0 flex-grow-0">
+      <CardHeader className="flex-shrink-0">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
             <Avatar className="h-10 w-10">
@@ -141,11 +89,11 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDele
           </Badge>
         </div>
         
-        <Link to={`/post/${post.id}`} className="block hover:opacity-80 transition-opacity flex-grow">
-          <h3 className="text-xl font-semibold mb-2 h-16 flex items-start overflow-hidden">
+        <Link to={`/post/${post.id}`} className="block hover:opacity-80">
+          <h3 className="text-xl font-semibold mb-2">
             {post.title}
           </h3>
-          <p className="text-muted-foreground mb-4 h-20 flex items-start overflow-hidden">
+          <p className="text-muted-foreground mb-4">
             {post.content.length > 120 
               ? post.content.slice(0, 120) + "..." 
               : post.content}
@@ -153,11 +101,11 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDele
         </Link>
         
         {post.image_url && (
-          <Link to={`/post/${post.id}`} className="block overflow-hidden rounded-lg mt-auto">
+          <Link to={`/post/${post.id}`} className="block">
             <img
               src={post.image_url}
               alt={post.title}
-              className="w-full h-48 object-cover hover:scale-110 transition-transform duration-500"
+              className="w-full h-48 object-cover rounded-lg"
             />
           </Link>
         )}
@@ -172,89 +120,11 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDele
       <CardContent className="flex-shrink-0 mt-auto">
         <div className="flex items-center justify-between border-t pt-4">
           <div className="flex items-center space-x-4">
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={toggleLike}
-              disabled={likesLoading}
-              className="flex items-center space-x-2 hover:scale-110 transition-transform duration-200"
-            >
-              <Heart 
-                className={`w-4 h-4 transition-all duration-300 ${isLiked ? 'fill-red-500 text-red-500 animate-pulse' : 'hover:text-red-400'}`} 
-              />
-              <span className="font-medium">{likesCount}</span>
-            </Button>
-            
-            <Button 
-              variant="ghost" 
-              size="sm"
-              onClick={() => setShowComments(!showComments)}
-              className="flex items-center space-x-2 hover:scale-110 transition-transform duration-200"
-            >
-              <MessageCircle className={`w-4 h-4 transition-all duration-300 ${showComments ? 'text-primary' : 'hover:text-primary'}`} />
-              <span className="font-medium">{commentsCount}</span>
-            </Button>
-            
-            <Button 
-              variant="ghost" 
-              size="sm"
-              onClick={handleShare}
-              className="flex items-center space-x-1 hover:scale-110 transition-transform duration-200"
-            >
-              {shareClicked ? (
-                <Check className="w-4 h-4 text-green-600 animate-bounce" />
-              ) : (
-                <Share2 className="w-4 h-4 hover:text-accent transition-colors duration-300" />
-              )}
-            </Button>
+            <span className="text-sm text-muted-foreground">
+              Post by {profile?.full_name || profile?.username || "Anonymous"}
+            </span>
           </div>
         </div>
-
-        {showComments && (
-          <div className="mt-4 space-y-4">
-            <div className="flex space-x-2">
-              <Textarea
-                placeholder="Write a comment..."
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                className="min-h-[80px]"
-              />
-              <Button 
-                onClick={handleCommentSubmit}
-                disabled={submitting || !newComment.trim()}
-                size="sm"
-              >
-                <Send className="w-4 h-4" />
-              </Button>
-            </div>
-
-            <div className="space-y-3">
-              {comments.map((comment) => (
-                <div key={comment.id} className="flex space-x-3 p-3 bg-muted rounded-lg">
-                  <Avatar className="h-8 w-8">
-                    <AvatarImage src={comment.profiles?.avatar_url || ""} />
-                    <AvatarFallback>
-                      {comment.profiles?.username?.[0]?.toUpperCase() || 
-                       comment.profiles?.full_name?.[0]?.toUpperCase() || "U"}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="flex-1">
-                    <p className="font-medium text-sm">
-                      {comment.profiles?.full_name || 
-                       comment.profiles?.username || "Anonymous"}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      {comment.content}
-                    </p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      {new Date(comment.created_at).toLocaleDateString()}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
       </CardContent>
     </Card>
   );

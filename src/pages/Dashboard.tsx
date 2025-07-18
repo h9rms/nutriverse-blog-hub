@@ -13,6 +13,8 @@ import { formatDistanceToNow } from 'date-fns';
 import { de } from 'date-fns/locale';
 import { useToast } from '@/hooks/use-toast';
 import PostCard from '@/components/PostCard';
+
+// Added a comment to trigger re-deploy
 interface Post {
   id: string;
   title: string;

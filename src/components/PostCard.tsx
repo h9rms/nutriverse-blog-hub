@@ -241,7 +241,7 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDele
         )}
 
         {showActions && (
-          <div className="mt-4 pt-4 border-t">
+          <div className="mt-2 pt-2 border-t">
             <div className="flex items-center gap-2">
               <Button asChild variant="outline" size="xs">
                 <Link to={`/edit-post/${post.id}`}>

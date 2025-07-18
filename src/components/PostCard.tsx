@@ -241,23 +241,23 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDele
         )}
 
         {showActions && (
-  <div className="absolute bottom-4 right-4 z-20 flex gap-2">
-    <Button asChild variant="ghost" size="xs" className="border-0 focus:outline-none focus-visible:ring-0 ring-offset-0 shadow-none bg-white/80 hover:bg-white/90 backdrop-blur-sm transition-colors">
-      <Link to={`/edit-post/${post.id}`}>
-        <Edit className="h-3 w-3 mr-1" />
-        Edit
-      </Link>
-    </Button>
-    <Button
-      variant="ghost" size="xs"
-      onClick={() => handleDeletePost?.(post.id)}
-      className="text-destructive hover:text-destructive border-0 focus:outline-none focus-visible:ring-0 ring-offset-0 shadow-none bg-white/80 hover:bg-white/90 backdrop-blur-sm transition-colors"
-    >
-      <Trash2 className="h-3 w-3 mr-1" />
-      Delete
-    </Button>
-  </div>
-)}
+          <div className="absolute bottom-4 right-4 z-20 flex gap-2">
+            <Button asChild variant="ghost" size="xs" className="border-0 focus:outline-none focus-visible:ring-0 ring-offset-0 shadow-none bg-white/80 hover:bg-white/90 backdrop-blur-sm transition-colors">
+              <Link to={`/edit-post/${post.id}`}>
+                <Edit className="h-3 w-3 mr-1" />
+                Edit
+              </Link>
+            </Button>
+            <Button
+              variant="ghost" size="xs"
+              onClick={() => handleDeletePost?.(post.id)}
+              className="text-destructive hover:text-destructive border-0 focus:outline-none focus-visible:ring-0 ring-offset-0 shadow-none bg-white/80 hover:bg-white/90 backdrop-blur-sm transition-colors"
+            >
+              <Trash2 className="h-3 w-3 mr-1" />
+              Delete
+            </Button>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

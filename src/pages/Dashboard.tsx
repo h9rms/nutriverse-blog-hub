@@ -239,7 +239,7 @@ const Dashboard = () => {
                        </Button>
                      </div>
                    </div> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                     {myPosts.map(post => <PostCard key={post.id} post={post} profile={post.profiles} showActions={true} />)}
+                     {myPosts.map(post => <PostCard key={post.id} post={post} profile={post.profiles} showActions={true} handleDeletePost={handleDeletePost} />)}
                    </div>}
                </div>
              </TabsContent>

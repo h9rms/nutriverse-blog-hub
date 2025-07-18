@@ -1,3 +1,8 @@
 export default function App() {
-  return <h1>Hello World</h1>;
+  return (
+    <div style={{ padding: '20px' }}>
+      <h1>FitLife</h1>
+      <p>Welcome to your fitness journey!</p>
+    </div>
+  );
 }

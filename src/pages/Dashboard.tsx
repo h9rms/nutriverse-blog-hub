@@ -239,7 +239,7 @@ const Dashboard = () => {
                        </Button>
                      </div>
                    </div> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                     {myPosts.map(post => <PostCard key={post.id} post={post} profile={post.profiles} showActions={true} handleDeletePost={handleDeletePost} onLikeChange={fetchDashboardData} />)}
+                     {myPosts.map(post => <PostCard key={post.id} post={post} profile={post.profiles} showActions={true} handleDeletePost={handleDeletePost} />)}
                    </div>}
                </div>
              </TabsContent>
@@ -274,7 +274,7 @@ const Dashboard = () => {
                        </Button>
                      </div>
                    </div> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                     {savedPosts.map(post => <PostCard key={post.id} post={post} profile={post.profiles} showActions={false} onLikeChange={fetchDashboardData} />)}
+                     {savedPosts.map(post => <PostCard key={post.id} post={post} profile={post.profiles} showActions={false} />)}
                    </div>}
                </div>
              </TabsContent>
@@ -309,7 +309,7 @@ const Dashboard = () => {
                        </Button>
                      </div>
                    </div> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                     {likedPosts.map(post => <PostCard key={post.id} post={post} profile={post.profiles} showActions={false} onLikeChange={fetchDashboardData} />)}
+                     {likedPosts.map(post => <PostCard key={post.id} post={post} profile={post.profiles} showActions={false} />)}
                    </div>}
                </div>
              </TabsContent>

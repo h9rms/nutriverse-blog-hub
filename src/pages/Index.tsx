@@ -327,7 +327,6 @@ const Index = () => {
                         <PostCard 
                           post={post} 
                           profile={post.profiles}
-                          onLikeChange={fetchPosts}
                         />
                       </div>
                     </div>

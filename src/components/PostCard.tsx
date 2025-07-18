@@ -103,23 +103,19 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDele
     <Card className="glass-effect hover-lift transition-all duration-500 border-0 backdrop-blur-sm h-[600px] flex flex-col overflow-hidden relative">
       {/* Action Buttons always visible in the lower right */}
       {showActions && (
-        <div className="absolute bottom-4 right-4 z-20 flex gap-2">
-          <Button asChild variant="ghost" size="xs" className="border-0 focus:outline-none focus-visible:ring-0 ring-offset-0 shadow-none bg-white/80 hover:bg-white/90 backdrop-blur-sm transition-colors">
-            <Link to={`/edit-post/${post.id}`}>
-              <Edit className="h-3 w-3 mr-1" />
-              Edit
-            </Link>
-          </Button>
-          <Button
-            variant="ghost" size="xs"
-            onClick={() => handleDeletePost?.(post.id)}
-            className="text-destructive hover:text-destructive border-0 focus:outline-none focus-visible:ring-0 ring-offset-0 shadow-none bg-white/80 hover:bg-white/90 backdrop-blur-sm transition-colors"
-          >
-            <Trash2 className="h-3 w-3 mr-1" />
-            Delete
-          </Button>
-        </div>
-      )}
+  <div className="absolute bottom-5 right-5 z-20 flex flex-col gap-2">
+    <Button asChild variant="secondary" size="icon" className="rounded-full shadow-lg p-2 bg-white/90 hover:bg-white">
+      <Link to={`/edit-post/${post.id}`}> <Edit className="h-5 w-5 text-primary" /> </Link>
+    </Button>
+    <Button
+      variant="secondary" size="icon"
+      onClick={() => handleDeletePost?.(post.id)}
+      className="rounded-full shadow-lg p-2 bg-white/90 hover:bg-white"
+    >
+      <Trash2 className="h-5 w-5 text-destructive" />
+    </Button>
+  </div>
+)}
       <CardHeader className="flex-shrink-0 flex-grow-0">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
@@ -170,7 +166,7 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDele
         )}
       </CardHeader>
       
-      <CardContent className="flex-shrink-0 mt-auto">
+      <CardContent className="pr-16 flex-shrink-0 mt-auto">
         <div className="flex items-center justify-between border-t pt-4">
           <div className="flex items-center space-x-4">
             <Button 

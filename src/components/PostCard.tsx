@@ -32,9 +32,10 @@ interface PostCardProps {
   profile: Profile | null;
   showActions?: boolean;
   onLikeChange?: () => void;
+  handleDeletePost?: (postId: string) => void;
 }
 
-const PostCard = ({ post, profile, showActions = false, onLikeChange }: PostCardProps) => {
+const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDeletePost }: PostCardProps) => {
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState("");
   const [shareClicked, setShareClicked] = useState(false);
@@ -242,18 +243,17 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange }: PostCard
         {showActions && (
           <div className="mt-4 pt-4 border-t">
             <div className="flex items-center gap-2">
-              <Button asChild variant="outline" size="sm">
+              <Button asChild variant="outline" size="xs">
                 <Link to={`/edit-post/${post.id}`}>
-                  <Edit className="h-4 w-4 mr-2" />
+                  <Edit className="h-3 w-3 mr-1" />
                   Edit
                 </Link>
               </Button>
-              <Button 
-                variant="outline" 
-                size="sm"
-                className="text-destructive hover:text-destructive"
+              <Button
+                variant="destructive" size="xs"
+                onClick={() => handleDeletePost?.(post.id)}
               >
-                <Trash2 className="h-4 w-4 mr-2" />
+                <Trash2 className="h-3 w-3 mr-1" />
                 Delete
               </Button>
             </div>

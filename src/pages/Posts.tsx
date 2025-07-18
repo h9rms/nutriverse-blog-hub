@@ -250,19 +250,8 @@ const Posts = () => {
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredPosts.map((post, index) => (
-                <div 
-                  key={post.id} 
-                  className={`fade-in-up stagger-${Math.min(index + 1, 12)} transition-all duration-300 hover:scale-105`}
-                >
-                  <div className="border rounded p-4 bg-white">
-                    <h3 className="font-bold text-lg">{post.title}</h3>
-                    <p className="text-gray-600 mt-2">{post.content}</p>
-                    <span className="text-xs bg-blue-100 px-2 py-1 rounded mt-2 inline-block">{post.category}</span>
-                  </div>
-                </div>
-              ))}
+            <div className="text-center py-8">
+              <p className="text-muted-foreground">Posts will be displayed here.</p>
             </div>
           )}
           </div>

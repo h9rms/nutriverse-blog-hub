@@ -320,18 +320,8 @@ const Index = () => {
                   ))}
                 </div>
               ) : (
-                <div ref={postsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {posts.map((post, index) => (
-                    <div key={post.id} className="hover-lift magnetic">
-                      <div className="gradient-border">
-                        <div className="border rounded p-4 bg-white">
-                          <h3 className="font-bold text-lg">{post.title}</h3>
-                          <p className="text-gray-600 mt-2">{post.content}</p>
-                          <span className="text-xs bg-blue-100 px-2 py-1 rounded mt-2 inline-block">{post.category}</span>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                <div className="text-center py-8">
+                  <p className="text-muted-foreground">Posts will appear here soon.</p>
                 </div>
               )}
 

@@ -146,8 +146,8 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange, handleDele
         </div>
         
         <Link to={`/post/${post.id}`} className="block hover:opacity-80 transition-opacity flex-grow">
-          <h3 className="text-xl font-semibold mb-2 line-clamp-2 h-16 flex items-start">{post.title}</h3>
-          <p className="text-muted-foreground mb-4 line-clamp-3 h-20 flex items-start">
+          <h3 className="text-xl font-semibold mb-2 h-16 flex items-start overflow-hidden">{post.title}</h3>
+          <p className="text-muted-foreground mb-4 h-20 flex items-start overflow-hidden">
             {post.content.length > 120 
               ? post.content.slice(0, 120) + "..." 
               : post.content}

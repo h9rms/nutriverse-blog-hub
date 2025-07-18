@@ -99,7 +99,7 @@ const PostCard = ({ post, profile, showActions = false, onLikeChange }: PostCard
   };
 
   return (
-    <Card className="glass-effect hover-lift transition-all duration-500 border-0 backdrop-blur-sm h-[600px] flex flex-col">
+    <Card className="glass-effect hover-lift transition-all duration-500 border-0 backdrop-blur-sm h-[600px] flex flex-col overflow-hidden">
       <CardHeader className="flex-shrink-0 flex-grow-0">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">

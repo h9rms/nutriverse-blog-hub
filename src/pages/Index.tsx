@@ -326,7 +326,8 @@ const Index = () => {
                       <div className="gradient-border">
                         <PostCard 
                           post={post} 
-                          profile={post.profiles} 
+                          profile={post.profiles}
+                          onLikeChange={fetchPosts}
                         />
                       </div>
                     </div>

@@ -258,7 +258,8 @@ const Posts = () => {
                 >
                   <PostCard 
                     post={post} 
-                    profile={post.profiles} 
+                    profile={post.profiles}
+                    onLikeChange={fetchPosts}
                   />
                 </div>
               ))}
